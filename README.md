@@ -46,4 +46,4 @@ Pressing `ESC` closes the live stream and exits the program.
 
 ---
 
-We hope you enjoy using Unvoiced! If you have any questions or feedback, feel free to reach out. Happy signing! 🤟
+
