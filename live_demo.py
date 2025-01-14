@@ -20,12 +20,13 @@ live_stream = cv2.VideoCapture(0)
 current_word = ""
 
 # Load training labels file
-label_lines = [line.rstrip() for line in tf.gfile.GFile("training_set_labels.txt")]
+with open("training_set_labels.txt", "r") as f:
+    label_lines = [line.rstrip() for line in f]
 
 # Load trained model's graph
-with tf.gfile.FastGFile("trained_model_graph.pb", 'rb') as f:
+with open("trained_model_graph.pb", 'rb') as f:
 	# Define a tensorflow graph
-    graph_def = tf.GraphDef()
+    graph_def = tf.compat.v1.GraphDef()
 
     # Read and import line by line from the trained model's graph
     graph_def.ParseFromString(f.read())
@@ -74,7 +75,7 @@ def speak_letter(letter):
     # Playing the speech using mpg321
     os.system("afplay prediction.mp3")
 
-with tf.Session() as sess:
+with tf.compat.v1.Session() as sess:
 	# Feed the image_data as input to the graph and get first prediction
 	softmax_tensor = sess.graph.get_tensor_by_name('final_result:0')
 
@@ -192,7 +193,7 @@ with tf.Session() as sess:
 		# If ESC is pressed
 		if keypress == 27:
 			exit(0)	
-
+ 
 		# Update time
 		time_counter = time_counter + 1
 
